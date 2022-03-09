@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 from enum import Enum
 
 
@@ -14,7 +14,7 @@ class Unsatisfiable(str, Enum):
 
 
 class TopologySpreadConstraint(BaseModel):
-    labelSelector: dict|None
+    labelSelector: Optional[Dict[str, str]]
     maxSkew: int
     topologyKey: str
     whenUnsatisfiable: Unsatisfiable = Unsatisfiable.doNotSchedule
@@ -50,11 +50,11 @@ class TopologySpreadConstraint(BaseModel):
 
 
 class Metadata(BaseModel):
-    name: str|None = None
-    generateName: str|None = None
+    name: Optional[str]
+    generateName: Optional[str]
     namespace: str = "default"
-    labels: Dict[str, str]|None = None
-    annotations: Dict[str, str]|None = None
+    labels: Optional[Dict[str, str]]
+    annotations: Optional[Dict[str, str]]
 
 
 class Pod(BaseModel):
@@ -63,7 +63,7 @@ class Pod(BaseModel):
 
 
 class Request(BaseModel):
-    name: str|None = None
+    name: Optional[str]
     namespace: str
     uid: str
     kind: Dict[str, str]
@@ -71,9 +71,9 @@ class Request(BaseModel):
     requestKind: Dict[str, str]
     requestResource: Dict[str, str]
     operation: Op
-    userInfo: Dict[str, str|List[str]]
+    userInfo: Dict[str, Any]
     object: Pod
-    oldObject: Dict|None = None
+    oldObject: Optional[Dict]
     dryRun: bool
     options: Dict[str, str]
 
@@ -88,8 +88,8 @@ class Response(BaseModel):
 class AdmissionReview(BaseModel):
     apiVersion: str = "admission.k8s.io/v1beta1"
     kind: str = "AdmissionReview"
-    request: Request|None = None
-    response: Response|None = None
+    request: Optional[Request]
+    response: Optional[Response]
 
 
 class Patch(BaseModel):
