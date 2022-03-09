@@ -35,9 +35,9 @@ class TopologySpreadConstraint(BaseModel):
             if k.startswith("topologySpreadConstraint/")
         }
         args = {
-            "labelSelector": annotations.get("labelSelector"),
+            "labelSelector": annotations["labelSelector"],
             "maxSkew": int(annotations.get("maxSkew", 1)),
-            "topologyKey": annotations.get("topologyKey"),
+            "topologyKey": annotations["topologyKey"],
             "whenUnsatisfiable": annotations.get("whenUnsatisfiable", Unsatisfiable.doNotSchedule)
         }
         if args["labelSelector"] != "":
