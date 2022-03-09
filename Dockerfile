@@ -9,4 +9,4 @@ RUN apt-get update \
  && chown -R mutator /app
 USER mutator
 WORKDIR /app
-ENTRYPOINT [ "uvicorn", "--host", "0.0.0.0", "--ssl-keyfile", "/app/certs/tls.key", "--ssl-certfile", "/app/certs/tls.crt", "--ssl-ca-certs", "/app/certs/ca.crt", "main:app"]
+ENTRYPOINT [ "uvicorn", "--reload", "--host", "0.0.0.0", "--ssl-keyfile", "/app/certs/tls.key", "--ssl-certfile", "/app/certs/tls.crt", "--ssl-ca-certs", "/app/certs/ca.crt", "main:app"]
