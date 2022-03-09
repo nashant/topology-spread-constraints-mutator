@@ -27,4 +27,4 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: nashant/adguard-ingress-operator
+          tags: nashant/topology-spread-constraints-mutator
