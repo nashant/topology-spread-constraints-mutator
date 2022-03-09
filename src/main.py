@@ -30,8 +30,8 @@ async def mutate(body: dict) -> None:
             constraints.append(TopologySpreadConstraint.fromAnnotations(pod.metadata.annotations))
         except KeyError:
             pass
-    patch = dumps([Patch(value=constraints)])
-    patch = str(patch).encode()
+    patch = [Patch(value=constraints).dict()]
+    patch = str(dumps(patch)).encode()
     response = {
         "uid": ar.request.uid,
         "patch": b64encode(patch).decode()
