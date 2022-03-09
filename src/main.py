@@ -26,7 +26,10 @@ async def mutate(body: dict) -> None:
 
     constraints = []
     if pod.metadata.annotations is not None:
-        constraints.append(TopologySpreadConstraint.fromAnnotations(pod.metadata.annotations))
+        try:
+            constraints.append(TopologySpreadConstraint.fromAnnotations(pod.metadata.annotations))
+        except KeyError:
+            pass
     patch = dumps([Patch(value=constraints)])
     patch = str(patch).encode()
     response = {
