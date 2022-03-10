@@ -28,11 +28,12 @@ async def mutate(body: dict) -> None:
 
     spec = pod.metadata.annotations.get("topologySpreadConstraints/spec", None)
     op = pod.metadata.annotations.get("topologySpreadConstraints/op", "add")
+    path = pod.metadata.annotations.get("topologySpreadConstraints/path", "/spec/topologySpreadConstraints")
 
     if spec is None :
         return AdmissionReview(response={"uid": ar.request.uid, "patchType": None}).json()
 
-    patch = Patch(op=op, value=loads(spec))
+    patch = Patch(op=op, path=path, value=loads(spec))
     response = ARResponse(uid=ar.request.uid, patch=patch.dump())
 
     logging.info(msg=f"Applying patch: {patch}")

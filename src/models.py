@@ -40,7 +40,7 @@ class Request(BaseModel):
 
 class Patch(BaseModel):
     op: str
-    path: str = "/spec/topologySpreadConstraints"
+    path: str
     value: List[Dict[str, Any]] = []
 
     def dump(self):
