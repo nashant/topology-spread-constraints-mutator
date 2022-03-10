@@ -24,11 +24,11 @@ async def health() -> None:
 @app.post("/mutate")
 async def mutate(body: dict) -> None:
     ar = AdmissionReview(**body)
-    pod = ar.request.object
+    obj = ar.request.object
 
-    spec = pod.metadata.annotations.get("topologySpreadConstraints/spec", None)
-    op = pod.metadata.annotations.get("topologySpreadConstraints/op", "add")
-    path = pod.metadata.annotations.get("topologySpreadConstraints/path", "/spec/topologySpreadConstraints")
+    spec = obj.metadata.annotations.get("topologySpreadConstraints/spec", None)
+    op = obj.metadata.annotations.get("topologySpreadConstraints/op", "add")
+    path = obj.metadata.annotations.get("topologySpreadConstraints/path", "/spec/topologySpreadConstraints")
 
     if spec is None :
         return AdmissionReview(response={"uid": ar.request.uid, "patchType": None}).json()

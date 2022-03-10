@@ -17,7 +17,7 @@ class Metadata(BaseModel):
     annotations: Optional[Dict[str, str]]
 
 
-class Pod(BaseModel):
+class Object(BaseModel):
     metadata: Metadata
     spec: Dict[str, Any]
 
@@ -32,7 +32,7 @@ class Request(BaseModel):
     requestResource: Dict[str, str]
     operation: Op
     userInfo: Dict[str, Any]
-    object: Pod
+    object: Object
     oldObject: Optional[Dict]
     dryRun: bool
     options: Dict[str, str]
