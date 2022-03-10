@@ -3,6 +3,7 @@ FROM python:3.10-slim-buster
 ADD src /app
 RUN apt-get update \
  && apt-get upgrade -y \
+ && apt-get install -y vim \
  && pip install --upgrade pip \
  && pip install -r /app/requirements.txt \
  && useradd -mb /tmp -s /bin/bash -u 1000 mutator \
